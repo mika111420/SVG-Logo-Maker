@@ -13,5 +13,13 @@ function generateLogo(textColor, text, shape, shapeColor) {
       shapeElement = svg.rect(100, 50, 100, 100);
     }
 
+    const textElement = svg.text(text).center(150,100);
+    textElement.fill(textColor);
+
     shapeElement.fill(shapeColor);
+
+    const svgCreate = svg.render();
+
+    return svgCreate;
+
 }
