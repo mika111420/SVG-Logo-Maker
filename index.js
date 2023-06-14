@@ -50,7 +50,7 @@ function startLogoGenerator() {
         },
       ])
       .then((answers) => {
-        const { text, textColor, shape, shapeColor } = answers;
+        const { textColor, text, shape, shapeColor} = answers;
         const svgCreate = generateLogo(textColor, text, shape, shapeColor);
         const filename = 'logo.svg';
         saveLogoToFile(filename, svgCreate);
@@ -61,3 +61,8 @@ function startLogoGenerator() {
       });
 
 }
+
+function saveLogoToFile(filename, svgMarkup) {
+    const fs = require('fs');
+    fs.writeFileSync(filename, svgMarkup);
+  }
