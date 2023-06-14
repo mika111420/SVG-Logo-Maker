@@ -23,3 +23,30 @@ function generateLogo(textColor, text, shape, shapeColor) {
     return svgCreate;
 
 }
+
+function startLogoGenerator() {
+    inquirer
+      .prompt([
+        {
+          name: 'text',
+          message: 'Enter three characters for the logo:',
+          validate: (input) => input.length <= 3 || 'Please enter up to three characters.',
+        },
+        {
+          name: 'textColor',
+          message: 'Enter the text color:',
+          default: 'black',
+        },
+        {
+          name: 'shape',
+          message: 'Select a shape:',
+          type: 'list',
+          choices: ['circle', 'triangle', 'square'],
+        },
+        {
+          name: 'shapeColor',
+          message: 'Enter shape color:',
+          default: 'blue',
+        },
+      ])
+}
