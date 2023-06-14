@@ -49,4 +49,15 @@ function startLogoGenerator() {
           default: 'blue',
         },
       ])
+      .then((answers) => {
+        const { text, textColor, shape, shapeColor } = answers;
+        const svgCreate = generateLogo(textColor, text, shape, shapeColor);
+        const filename = 'logo.svg';
+        saveLogoToFile(filename, svgCreate);
+        console.log('Generated File Successfully!', filename);
+      })
+      .catch((error) => {
+        console.error('An error occurred:', error);
+      });
+
 }
