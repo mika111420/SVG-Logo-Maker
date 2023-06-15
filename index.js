@@ -1,26 +1,28 @@
 const inquirer = require('inquirer');
-const { SVG, Path } = require('svg-builder');
+
+// import('inquirer').then((inquirer) => {
+//     // Your code that uses inquirer goes here
+//   }).catch((err) => {
+//     console.error('Error importing inquirer:', err);
+//   });
+const { Triangle, Circle,  Square } = require('./lib/shapes');
+const SVG = require('./lib/svg')
 
 function generateLogo(textColor, text, shape, shapeColor) {
-    const svg = new SVG().size(300, 200);
-
     let shapeElement;
     if (shape === 'circle') {
-      shapeElement = svg.circle(150, 100, 50);
+      shapeElement = new Circle(shapeColor);
     } else if (shape === 'triangle') {
-      shapeElement = svg.polygon([[150, 50], [250, 150], [50, 150]]);
+      shapeElement = new Triangle(shapeColor);
     } else if (shape === 'square') {
-      shapeElement = svg.rect(100, 50, 100, 100);
+      shapeElement = new Square(shapeColor);
     }
 
-    const textElement = svg.text(text).center(150,100);
-    textElement.fill(textColor);
+    const svg = new SVG
+    svg.setShape(shapeElement)
+    svg.setText(text, textColor)
 
-    shapeElement.fill(shapeColor);
-
-    const svgCreate = svg.render();
-
-    return svgCreate;
+    return svg.svgTag();
 
 }
 
@@ -53,8 +55,10 @@ function startLogoGenerator() {
         const { textColor, text, shape, shapeColor} = answers;
         const svgCreate = generateLogo(textColor, text, shape, shapeColor);
         const filename = 'logo.svg';
-        saveLogoToFile(filename, svgCreate);
-        console.log('Generated File Successfully!', filename);
+        return saveLogoToFile(filename, svgCreate);
+      })
+      .then(() => {
+         console.log('Generated File Successfully!');
       })
       .catch((error) => {
         console.error('An error occurred:', error);
@@ -63,6 +67,8 @@ function startLogoGenerator() {
 }
 
 function saveLogoToFile(filename, svgMarkup) {
-    const fs = require('fs');
-    fs.writeFileSync(filename, svgMarkup);
+    const { writeFile } = require('fs/promises');
+    return writeFile(filename, svgMarkup);
   }
+
+  startLogoGenerator();
