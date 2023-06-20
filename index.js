@@ -1,10 +1,5 @@
 const inquirer = require('inquirer');
 
-// import('inquirer').then((inquirer) => {
-//     // Your code that uses inquirer goes here
-//   }).catch((err) => {
-//     console.error('Error importing inquirer:', err);
-//   });
 const { Triangle, Circle,  Square } = require('./lib/shapes');
 const SVG = require('./lib/svg')
 
